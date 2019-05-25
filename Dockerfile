@@ -14,7 +14,10 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone &
     rm -rf /var/lib/apt/lists/* &&\
     ldconfig
 
+WORKDIR /etc/freeradius
+VOLUME ["/etc/freeradius"]
+
 COPY docker-entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["docker-entrypoint.sh"]
 
-CMD ["freeradius-server"]
+CMD ["freeradius"]
