@@ -46,7 +46,25 @@ else
 fi
 
 if [ "$1" == 'freeradius' ]; then
-    exec freeradius -f
+    if [ ! -e radiusd.conf ]; then
+        echo >&2 "Freeradius config not found in $PWD - copying default config now..."
+        if [ -n "$(ls -A)" ]; then
+            echo >&2 "WARNING: $PWD is not empty! (copying anyhow)"
+        fi
+        sourceTarArgs=(
+            --create
+            --file -
+            --directory /usr/src/freeradius
+            --owner "$FREERADIUS_RUN_USER" --group "$FREERADIUS_RUN_GROUP"
+        )
+        targetTarArgs=(
+            --extract
+            --file -
+        )
+        tar "${sourceTarArgs[@]}" . | tar "${targetTarArgs[@]}"
+        echo >&2 "Complete! Freeradius default config has been successfully copied to $PWD"
+    fi
+    exec freeradius -fl stdout
 fi
 
 exec "$@"
