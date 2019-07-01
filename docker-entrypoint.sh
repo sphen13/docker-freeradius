@@ -36,7 +36,8 @@ fi
 
 if [ -n "${FREERADIUS_RUN_UID:-}" ]; then
     if [ ! $(getent passwd radius) ]; then
-        adduser --gecos "" --ingroup ${FREERADIUS_RUN_GROUP} --no-create-home --disabled-password --disabled-login --uid ${FREERADIUS_RUN_UID} radius
+        #adduser --gecos "" --ingroup ${FREERADIUS_RUN_GROUP} --no-create-home --disabled-password --disabled-login --uid ${FREERADIUS_RUN_UID} radius
+        adduser -g "" -G ${FREERADIUS_RUN_GROUP} -H -D -s /bin/nologin -u ${FREERADIUS_RUN_UID} radius
     fi
     export FREERADIUS_RUN_USER=radius
     sed -ri 's/^.*group\ ?=\ ?freerad$/user\ =\ radius/' /freeradius/etc/raddb/radiusd.conf
