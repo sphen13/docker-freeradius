@@ -2,7 +2,7 @@
 # Freeradius Dockerfile
 #
 
-FROM alpine:latest
+FROM arm32v6lalpine:latest
 LABEL maintainer="Marius Bezuidenhout <marius.bezuidenhout@gmail.com>"
 
 ENV TZ Etc/UTC
