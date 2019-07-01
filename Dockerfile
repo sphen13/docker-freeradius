@@ -9,7 +9,7 @@ ENV TZ Etc/UTC
 ENV PATH "/freeradius/bin:/freeradius/sbin:/usr/local/bin:/usr/local/sbin:$PATH"
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone &&\
     apk add --no-cache talloc ca-certificates bash libwbclient gdbm &&\
-    apk add --no-cache --virtual .build-deps talloc-dev alpine-sdk git linux-headers openssl-dev openldap-dev ruby gdbm-dev &&\
+    apk add --no-cache --virtual .build-deps talloc-dev alpine-sdk git linux-headers libressl-dev openldap-dev ruby gdbm-dev &&\
     apk add --no-cache tar &&\
     git clone -b release_3_0_19 https://github.com/FreeRADIUS/freeradius-server.git &&\
     cd freeradius-server &&\
