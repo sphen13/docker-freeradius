@@ -28,7 +28,7 @@ if [ -n "${FREERADIUS_RUN_GID:-}" ]; then
         addgroup --gid ${FREERADIUS_RUN_GID} radius
     fi
     export FREERADIUS_RUN_GROUP=radius
-    sed -ri 's/user\ ?=\ ?freerad$/user\ =\ radius/' /freeradius/etc/radiusd.conf
+    sed -ri 's/^.*user\ ?=\ ?freerad$/user\ =\ radius/' /freeradius/etc/raddb/radiusd.conf
     echo "Changing service GID to ${FREERADIUS_RUN_GID}."
 else
     export FREERADIUS_RUN_GROUP=freerad
@@ -39,7 +39,7 @@ if [ -n "${FREERADIUS_RUN_UID:-}" ]; then
         adduser --gecos "" --ingroup ${FREERADIUS_RUN_GROUP} --no-create-home --disabled-password --disabled-login --uid ${FREERADIUS_RUN_UID} radius
     fi
     export FREERADIUS_RUN_USER=radius
-    sed -ri 's/group\ ?=\ ?freerad$/user\ =\ radius/' /freeradius/etc/radiusd.conf
+    sed -ri 's/^.*group\ ?=\ ?freerad$/user\ =\ radius/' /freeradius/etc/raddb/radiusd.conf
     echo "Changing service UID to ${FREERADIUS_RUN_UID}."
 else
     export FREERADIUS_RUN_USER=freerad
