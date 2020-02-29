@@ -36,7 +36,8 @@ fi
 
 if [ -n "${FREERADIUS_RUN_UID:-}" ]; then
     if [ ! $(getent passwd radius) ]; then
-        adduser --gecos "" --ingroup ${FREERADIUS_RUN_GROUP} --no-create-home --disabled-password --disabled-login --uid ${FREERADIUS_RUN_UID} radius
+        #adduser --gecos "" --ingroup ${FREERADIUS_RUN_GROUP} --no-create-home --disabled-password --disabled-login --uid ${FREERADIUS_RUN_UID} radius
+        adduser -g "" -G ${FREERADIUS_RUN_GROUP} -H -D -s /bin/nologin -u ${FREERADIUS_RUN_UID} radius
     fi
     export FREERADIUS_RUN_USER=radius
     sed -ri 's/^.*group\ ?=\ ?freerad$/user\ =\ radius/' /freeradius/etc/raddb/radiusd.conf
@@ -46,7 +47,7 @@ else
 fi
 
 if [ "$1" == 'radiusd' ]; then
-    if [ ! -e radiusd.conf ]; then
+    if [ ! -e etc/raddb/radiusd.conf ]; then
         echo >&2 "Freeradius config not found in $PWD - copying default config now..."
         if [ -n "$(ls -A)" ]; then
             echo >&2 "WARNING: $PWD is not empty! (copying anyhow)"
