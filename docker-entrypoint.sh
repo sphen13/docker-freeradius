@@ -47,7 +47,7 @@ else
 fi
 
 if [ "$1" == 'radiusd' ]; then
-    if [ ! -e radiusd.conf ]; then
+    if [ ! -e etc/raddb/radiusd.conf ]; then
         echo >&2 "Freeradius config not found in $PWD - copying default config now..."
         if [ -n "$(ls -A)" ]; then
             echo >&2 "WARNING: $PWD is not empty! (copying anyhow)"
