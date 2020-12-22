@@ -2,7 +2,7 @@
 # Freeradius Dockerfile
 #
 
-FROM arm32v6/alpine:latest
+FROM alpine:latest
 LABEL maintainer="Marius Bezuidenhout <marius.bezuidenhout@gmail.com>"
 
 ENV TZ Etc/UTC
@@ -11,7 +11,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone &
     apk add --no-cache talloc ca-certificates bash libwbclient gdbm tzdata tar libpcap mariadb-connector-c postgresql-libs libpq &&\
     apk add --no-cache --virtual .build-deps talloc-dev alpine-sdk git linux-headers openssl-dev openldap-dev ruby gdbm-dev mariadb-connector-c-dev \
 sqlite-dev postgresql-dev libpcap-dev &&\
-    git clone -b release_3_0_20 https://github.com/FreeRADIUS/freeradius-server.git &&\
+    git clone -b release_3_0_21 https://github.com/FreeRADIUS/freeradius-server.git &&\
     cd freeradius-server &&\
     ./configure --sysconfdir /freeradius/etc --bindir /freeradius/bin --sbindir /freeradius/sbin --without-rlm_cache_memcached --without-rlm_couchbase \
 --without-rlm_eap_ikev2 --without-rlm_eap_tnc --without-rlm_idn --without-rlm_krb5 --without-rlm_opendirectory --without-rlm_pam --without-rlm_perl \
