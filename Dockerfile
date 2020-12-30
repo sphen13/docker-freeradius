@@ -30,6 +30,7 @@ VOLUME ["/freeradius/etc"]
 EXPOSE 1812/tcp 1813/tcp 1814/tcp 1812/udp 1813/udp 1814/udp
 
 COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 CMD ["radiusd"]
